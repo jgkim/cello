@@ -1,9 +1,10 @@
-FROM hyperledger/cello-baseimage:latest
+FROM node:8.9 as build_js
+MAINTAINER Hyperledger Cello "github.com/hyperledger/cello"
+COPY src/static /var/www
+RUN cd /var/www/dashboard && npm install && npm run build
 
-COPY src /app
+FROM _NS_/cello-baseimage:_TAG_
+
 COPY src/celery.conf /etc/supervisor/conf.d/
-RUN	cd /app/ && \
-	pip install -r requirements.txt && \
-	rm -rf /tmp/cello
-
+COPY --from=build_js /var/www/dist /app/static/dist
 CMD /etc/init.d/supervisor start && if [ "$DEBUG" = "True" ]; then python dashboard.py ; else gunicorn -w 1 --worker-class eventlet -b 0.0.0.0:8080 dashboard:app ;fi
