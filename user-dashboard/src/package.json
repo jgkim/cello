@@ -102,8 +102,8 @@
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "stop": "egg-scripts stop --title=egg-server-user-dashboard",
-    "start:prod": "egg-scripts start --title=user-dashboard --env prod --stricky --port 8081",
-    "start:dev": "egg-bin dev --stricky --port 8081",
+    "start:prod": "egg-scripts start --title=user-dashboard --env prod --sticky --port 8081",
+    "start:dev": "egg-bin dev --sticky --port 8081",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
