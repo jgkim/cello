@@ -71,7 +71,7 @@ class ChainController extends Controller {
             success: true,
             height: results[0],
             recentBlock: results[1],
-            recentTransaction: results[2],
+            recentTransaction: results[2].filter(value => value !== null),
             channels: results[3],
             installedChainCodes: results[4],
             instantiatedChainCodes: results[5],
